@@ -11,19 +11,26 @@ import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.Display;
 
 
-
+/**
+ * All OpenGL tasks relating to creating, translating and rendering handled here.
+ * 
+ *
+ */
 
 public class PrototypeGLContext extends Application {
 	
 	int vertexHandle;
 	int colorHandle;
 	
+ 
 	public void Initialise()
 	{
 		glMatrixMode(GL_PROJECTION);
-		gluPerspective(70f, 800f/600f, 1, 10);
-		//glOrtho(-1,1,-1,1,1,-1);
 		
+		// 3D shape has a more realistic look with Perspective mode rather than Orthographic
+		gluPerspective(70f, 800f/600f, 1, 10);
+		
+		// render to the full size of the window
 		glViewport(0,0,Display.getWidth(), Display.getHeight());
 		
 		glMatrixMode(GL_MODELVIEW);
@@ -74,7 +81,9 @@ public class PrototypeGLContext extends Application {
             -0.5f, -0.5f, -0.5f,
              0.5f, -0.5f, -0.5f,
         });
-        vertexBuffer.rewind();
+        
+         // set the pointer back to the start of buffer
+        vertexBuffer.rewind();  // set the pointer back to the start of buffer
         
         FloatBuffer colorBuffer = BufferUtils.createFloatBuffer(3*24);
         colorBuffer.put(new float[]
@@ -117,7 +126,7 @@ public class PrototypeGLContext extends Application {
         });
         colorBuffer.rewind();
         
-      
+        // Allocate buffer space on the GPU and bind to the vertex and colour buffers created
         vertexHandle = glGenBuffers();
         glBindBuffer(GL_ARRAY_BUFFER, vertexHandle);
         glBufferData(GL_ARRAY_BUFFER, vertexBuffer, GL_STATIC_DRAW);
@@ -133,12 +142,13 @@ public class PrototypeGLContext extends Application {
         glTranslatef(0, 0, -3); 
         
 	}
-	
+	// method called 60 times per second
 	public void render()
 	{
 	
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         
+        //rotation controlled by motion control device
         glRotatef(1, leap.getAxis('x'), leap.getAxis('y'), 0);
         
         glBindBuffer(GL_ARRAY_BUFFER, vertexHandle);
@@ -154,6 +164,7 @@ public class PrototypeGLContext extends Application {
 	
 	public void destroy()
 	{
+		// free memory taken up in the GPU
 		 glDeleteBuffers(vertexHandle);
 	     glDeleteBuffers(colorHandle);
 	     glDisableClientState(GL_VERTEX_ARRAY);

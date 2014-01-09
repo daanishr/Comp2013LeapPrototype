@@ -4,7 +4,13 @@ import org.lwjgl.LWJGLException;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 
-
+/**
+ * 
+ * Generic LWJGL Application SuperCLass. contains the boiler plate code for the window.
+ * currently, window size is fixed and cannot be resized, but for the purposes of demonstrating
+ * the leap motion functionality, it is satisfactory.
+ *
+ */
 public class Application 
 {
 	protected LeapHandler leap;
@@ -22,7 +28,7 @@ public class Application
 		catch(LWJGLException e)
 		{
 			e.printStackTrace();
-			System.exit(-1);
+			System.exit(-1);  // this application is hardware accelerated.
 		}
 		
 	}
@@ -35,7 +41,7 @@ public class Application
 			update();
 			render();
 			Display.update();
-			Display.sync(60);
+			Display.sync(60);    // 60 frames per second ( matching monitor refresh rate)
 		}
 		destroy();
 	}

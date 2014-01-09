@@ -4,7 +4,12 @@ import com.leapmotion.leap.Controller;
 import com.leapmotion.leap.Frame;
 import com.leapmotion.leap.HandList;
 import com.leapmotion.leap.Vector;
-
+/**
+ * 
+ * Handles all the activities related to receiving and parsing motion data.
+ * Functions primarily used in the GLContext class.
+ *
+ */
 public class LeapHandler 
 {
 	private Controller controller;
