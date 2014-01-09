@@ -149,7 +149,7 @@ public class PrototypeGLContext extends Application {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         
         //rotation controlled by motion control device
-        glRotatef(1, leap.getAxis('x'), leap.getAxis('y'), 0);
+        glRotatef(1, leap.getAxis('z'), leap.getAxis('x'), 0);
         
         glBindBuffer(GL_ARRAY_BUFFER, vertexHandle);
         glVertexPointer(3, GL_FLOAT, 0, 0);
